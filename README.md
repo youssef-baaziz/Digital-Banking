@@ -59,7 +59,7 @@ ebanking/
 
 #### Page de login
 
-![Login Screenshot](./screenshots/v1.png)
+![Login Screenshot](./screenshots/login.png)
 
 > 📸 *Pour se connecter, utilisez :*
 > - **admin / 1234** *(rôle ADMIN)*
