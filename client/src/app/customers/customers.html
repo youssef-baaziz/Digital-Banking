@@ -1,0 +1,97 @@
+<div class="container py-5 animate__animated animate__fadeIn">
+  <ng-container *ngIf="customers | async as customerList; else failureOrLoading">
+    <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+      <div class="card-header bg-gradient-primary text-white d-flex justify-content-between align-items-center">
+        <h5 class="mb-0"><i class="bi bi-people-fill me-2"></i> Customers</h5>
+        <!-- Removed (click)="refreshCustomers()" due to missing method -->
+        <button class="btn btn-light btn-sm shadow-sm" title="Refresh" disabled>
+          <i class="bi bi-arrow-clockwise"></i>
+        </button>
+      </div>
+
+      <div class="card-body bg-light-subtle">
+        <form *ngIf="searchFormGroup" [formGroup]="searchFormGroup" (ngSubmit)="handelSearchCustomers()">
+          <div class="input-group mb-4 shadow-sm rounded-3">
+            <span class="input-group-text bg-white border-0">
+              <i class="bi bi-search"></i>
+            </span>
+            <input type="text" class="form-control border-0" formControlName="keyword"
+              placeholder="🔍 Search by name or email..." autocomplete="off" />
+            <button class="btn btn-outline-primary" type="submit" [disabled]="searchFormGroup.invalid">
+              <i class="bi bi-arrow-right-circle"></i>
+            </button>
+          </div>
+        </form>
+
+        <div *ngIf="customerList.length === 0" class="alert alert-info text-center mt-4 animate__animated animate__fadeIn">
+          <i class="bi bi-info-circle me-2"></i>No customers found.
+        </div>
+
+        <div class="table-responsive rounded-4 overflow-hidden" *ngIf="customerList.length > 0">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th scope="col"><i class="bi bi-hash"></i> ID</th>
+                <th scope="col"><i class="bi bi-person"></i> Name</th>
+                <th scope="col"><i class="bi bi-envelope"></i> Email</th>
+                <th scope="col" class="text-center"><i class="bi bi-tools"></i> Actions</th>
+                <th scope="col" class="text-center"><i class="bi bi-person-badge"></i> Accounts</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let c of customerList; let i = index" class="table-row animate__animated animate__fadeInUp" [attr.data-index]="i">
+                <td>{{ c.id }}</td>
+                <td>
+                  <span class="fw-semibold">{{ c.name }}</span>
+                  <!-- Removed *ngIf="c.vip" due to missing property on CustomerModel -->
+                  <!--
+                  <span *ngIf="c.vip" class="badge bg-warning text-dark ms-2" title="VIP Customer">
+                    <i class="bi bi-star-fill"></i> VIP
+                  </span>
+                  -->
+                </td>
+                <td>
+                  <a [href]="'mailto:' + c.email" class="text-decoration-none text-primary">
+                    {{ c.email }}
+                  </a>
+                </td>
+                <td class="text-center">
+                  <button class="btn btn-sm btn-danger shadow-sm me-1" (click)="handleDeleteCustomer(c)" title="Delete customer">
+                    <i class="bi bi-trash3-fill"></i>
+                  </button>
+                  <button class="btn btn-sm btn-outline-secondary shadow-sm" (click)="handleEditCustomer(c)" title="Edit customer">
+                    <i class="bi bi-pencil-fill"></i>
+                  </button>
+                </td>
+                <td class="text-center">
+                  <button class="btn btn-sm btn-success shadow-sm" (click)="handleCustomerAccounts(c)" title="View accounts">
+                    <i class="bi bi-wallet-fill me-1"></i> Accounts
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Loading / Error State -->
+  <ng-template #failureOrLoading>
+    <ng-container *ngIf="errorMessage; else loading">
+      <div class="alert alert-danger mt-4 animate__animated animate__shakeX" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ errorMessage }}
+        <!-- Removed (click)="refreshCustomers()" due to missing method -->
+        <button class="btn btn-link btn-sm float-end" title="Retry" disabled>
+          <i class="bi bi-arrow-clockwise"></i> Retry
+        </button>
+      </div>
+    </ng-container>
+    <ng-template #loading>
+      <div class="text-center mt-5">
+        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
+        <p class="mt-3 text-muted">Loading customers, please wait...</p>
+      </div>
+    </ng-template>
+  </ng-template>
+</div>

@@ -1,0 +1,77 @@
+<nav class="navbar navbar-expand-lg shadow sticky-top" style="background: linear-gradient(90deg, #232526 0%, #414345 100%); border-bottom: 2px solid #0dcaf0;">
+  <div class="container-fluid">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="/admin/customers" style="color: #0dcaf0;">
+      <span class="rounded-circle d-flex align-items-center justify-content-center" style="background: rgba(13,202,240,0.15); width: 42px; height: 42px;">
+        <i class="bi bi-credit-card-fill fs-4" style="color: #ffc107;"></i>
+      </span>
+      <span class="fw-bold" style="letter-spacing: 0.03em; font-size: 1.35rem;">E-Banking Youssef</span>
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+      aria-label="Toggle navigation">
+      <i class="bi bi-list" style="color: #0dcaf0; font-size: 2rem;"></i>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-lg-2">
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center gap-1" routerLink="/admin/customers" style="color: #fff;">
+            <i class="bi bi-people-fill" style="color: #0dcaf0;"></i>
+            <span>Customers</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center gap-1" routerLink="/admin/accounts" style="color: #fff;">
+            <i class="bi bi-wallet2" style="color: #0dcaf0;"></i>
+            <span>Accounts</span>
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle d-flex align-items-center gap-1" href="#" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false" style="color: #fff;">
+            <i class="bi bi-gear-fill" style="color: #0dcaf0;"></i>
+            <span>Manage</span>
+          </a>
+          <ul class="dropdown-menu animate__animated animate__fadeIn" style="background: #232526; border-radius: 0.75rem; min-width: 220px;">
+            <!-- <li>
+              <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/admin/customers" style="color: #0dcaf0;">
+                <i class="bi bi-search"></i> Search Customers
+              </a>
+            </li> -->
+            <li>
+              <a *ngIf="authService.roles.includes('ADMIN')" class="dropdown-item d-flex align-items-center gap-2" routerLink="/admin/new-customer" style="color: #198754;">
+                <i class="bi bi-person-plus-fill"></i> New Customer
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- 👤 USER DROPDOWN -->
+      <ul *ngIf="authService.isAuthenticated== true" class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" id="userDropdown"
+            role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #fff;">
+            <span class="rounded-circle d-flex align-items-center justify-content-center" style="background: rgba(13,202,240,0.15); width: 36px; height: 36px;">
+              <i class="bi bi-person-circle fs-5" style="color: #0dcaf0;"></i>
+            </span>
+            <span class="fw-semibold" style="color: #fff;">{{ authService.username }}</span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end animate__animated animate__fadeInRight" aria-labelledby="userDropdown" style="background: #232526; border-radius: 0.75rem; min-width: 200px;">
+            <!-- <li>
+              <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/profile" style="color: #0dcaf0;">
+                <i class="bi bi-person"></i> Profile
+              </a>
+            </li>
+            <li><hr class="dropdown-divider" style="border-color: #0dcaf0; opacity: 0.3;" /></li> -->
+            <li>
+              <a (click)="handleLogout()" class="dropdown-item d-flex align-items-center gap-2" style="color: #dc3545;">
+                <i class="bi bi-box-arrow-right"></i> Logout
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

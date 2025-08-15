@@ -1,0 +1,71 @@
+<div class="container py-5" style="min-height: 90vh; background: linear-gradient(120deg, #0dcaf0 0%, #6f42c1 100%);">
+  <div class="card glass-card border-0 rounded-5 shadow-lg col-md-8 col-lg-6 mx-auto animate__animated animate__fadeIn" style="backdrop-filter: blur(10px); background: rgba(255,255,255,0.92);">
+
+    <div class="card-header rounded-top-5" style="background: linear-gradient(90deg, #6f42c1 0%, #0dcaf0 100%); color: #fff;">
+      <div class="d-flex align-items-center gap-2">
+        <span class="rounded-circle d-flex align-items-center justify-content-center" style="background: rgba(13,202,240,0.18); width: 44px; height: 44px;">
+          <i class="bi bi-person-plus-fill fs-3" style="color: #ffc107;"></i>
+        </span>
+        <h4 class="mb-0 fw-bold" style="letter-spacing: 0.01em;">Create New Customer</h4>
+      </div>
+    </div>
+
+    <div class="card-body px-5 py-4">
+      <form [formGroup]="newCustomerFormGroup" (ngSubmit)="handeSaveCustomer()" autocomplete="off" novalidate>
+
+        <div class="mb-4">
+          <label for="name" class="form-label fw-semibold" style="color: #6f42c1;">Full Name</label>
+          <div class="input-group input-group-lg shadow-sm rounded-3">
+            <span class="input-group-text bg-white bg-opacity-25 border-0 text-primary"><i class="bi bi-person-fill"></i></span>
+            <input
+              type="text"
+              id="name"
+              class="form-control border-0"
+              formControlName="name"
+              placeholder="Enter customer name"
+              style="background: transparent;"
+              autocomplete="off"
+            />
+          </div>
+          <div class="form-text text-danger ms-1" *ngIf="newCustomerFormGroup.controls['name'].touched && newCustomerFormGroup.controls['name'].errors?.['required']">
+            <i class="bi bi-exclamation-circle me-1"></i> Name is required
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="email" class="form-label fw-semibold" style="color: #6f42c1;">Email Address</label>
+          <div class="input-group input-group-lg shadow-sm rounded-3">
+            <span class="input-group-text bg-white bg-opacity-25 border-0 text-primary"><i class="bi bi-envelope-fill"></i></span>
+            <input
+              type="email"
+              id="email"
+              class="form-control border-0"
+              formControlName="email"
+              placeholder="Enter customer email"
+              style="background: transparent;"
+              autocomplete="off"
+            />
+          </div>
+          <div class="form-text text-danger ms-1" *ngIf="newCustomerFormGroup.controls['email'].touched && newCustomerFormGroup.controls['email'].errors?.['required']">
+            <i class="bi bi-exclamation-circle me-1"></i> Email is required
+          </div>
+          <div class="form-text text-danger ms-1" *ngIf="newCustomerFormGroup.controls['email'].touched && newCustomerFormGroup.controls['email'].errors?.['email']">
+            <i class="bi bi-exclamation-circle me-1"></i> Please enter a valid email address
+          </div>
+        </div>
+
+        <div class="d-grid mt-4">
+          <button
+            [disabled]="!newCustomerFormGroup.valid"
+            class="btn btn-gradient-primary btn-lg shadow rounded-3 animate__animated animate__pulse animate__infinite"
+            style="background: linear-gradient(90deg, #0dcaf0 0%, #6f42c1 100%); border: none; color: #fff;"
+          >
+            <i class="bi bi-plus-circle me-2"></i>Create Customer
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</div>

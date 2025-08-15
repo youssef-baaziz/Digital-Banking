@@ -1,0 +1,56 @@
+<div class="login-wrapper d-flex justify-content-center align-items-center min-vh-100 bg-gradient" style="background: linear-gradient(120deg, #0d6efd 0%, #3b8beb 50%, #67c6ff 100%);">
+  <div class="card login-card glass-card p-5 shadow-lg animate__animated animate__fadeIn col-lg-4 col-md-6 col-11 border-0 rounded-5" style="backdrop-filter: blur(8px); background: rgba(30, 34, 90, 0.85);">
+    <div class="text-center mb-4">
+      <div class="d-flex justify-content-center align-items-center mb-2">
+        <span class="rounded-circle bg-white bg-opacity-25 p-3 shadow">
+          <i class="bi bi-shield-lock-fill text-primary fs-1"></i>
+        </span>
+      </div>
+      <h2 class="fw-bold text-white mb-1" style="letter-spacing: 0.02em;">Welcome Back</h2>
+      <p class="text-light small mb-0">Sign in to your account to continue</p>
+    </div>
+
+    <form [formGroup]="loginFormGroup" (ngSubmit)="handleLogin()" autocomplete="on" novalidate>
+      <div class="mb-4">
+        <label for="username" class="form-label text-light fw-semibold">Username</label>
+        <div class="input-group input-group-lg shadow-sm rounded-3">
+          <span class="input-group-text bg-white bg-opacity-10 border-0 text-primary"><i class="bi bi-person-fill"></i></span>
+          <input type="text" id="username" formControlName="username"
+                 class="form-control bg-transparent text-white border-0"
+                 placeholder="Enter your username" autocomplete="username" required>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="password" class="form-label text-light fw-semibold">Password</label>
+        <div class="input-group input-group-lg shadow-sm rounded-3">
+          <span class="input-group-text bg-white bg-opacity-10 border-0 text-primary"><i class="bi bi-lock-fill"></i></span>
+          <input type="password" id="password" formControlName="password"
+                 class="form-control bg-transparent text-white border-0"
+                 placeholder="••••••••" autocomplete="current-password" required>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="rememberMe" formControlName="rememberMe">
+          <label class="form-check-label text-light small" for="rememberMe">
+            Remember me
+          </label>
+        </div>
+        <a href="#" class="text-decoration-none text-primary small fw-semibold">Forgot password?</a>
+      </div>
+
+      <button type="submit"
+              class="btn btn-gradient-primary btn-lg w-100 shadow rounded-3 animate__animated animate__pulse animate__infinite"
+              [disabled]="loginFormGroup.invalid">
+        <i class="bi bi-box-arrow-in-right me-2"></i> Sign In
+      </button>
+    </form>
+
+    <!-- <div class="text-center mt-4">
+      <span class="text-light small">Don't have an account?</span>
+      <a href="#" class="text-primary fw-semibold text-decoration-none ms-1">Sign up</a>
+    </div> -->
+  </div>
+</div>
